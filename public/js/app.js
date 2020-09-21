@@ -2022,31 +2022,29 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
+    var _this = this;
+
     this.arrayMessage = this.chat;
-    var socket = io(':6001');
-    socket.on('laravel_database_chat:message', function (data) {
-      console.log(data);
+    window.Echo.channel('laravel_database_chat').listen('NewMessage', function (_ref) {
+      var message = _ref.message;
+
+      _this.arrayMessage.push({
+        message: message
+      });
     });
   },
+  created: function created() {},
   methods: {
     save: function save() {
-      var _this = this;
+      var _this2 = this;
 
       if (this.input !== '' && this.input !== null) {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, {
           data: this.input
         }).then(function (response) {
-          if (response.data.success) {
-            _this.arrayMessage.push(response.data.success);
-
-            _this.input = null;
+          if (response) {
+            _this2.input = null;
           }
-
-          if (response.data.error) {
-            alert(response.data.error);
-          }
-        })["catch"](function (error) {
-          console.log(error);
         });
       }
     }
@@ -61922,26 +61920,14 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/sass/app.scss":
-/*!*********************************!*\
-  !*** ./resources/sass/app.scss ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
 /***/ 0:
-/*!*************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ***!
-  \*************************************************************/
+/*!***********************************!*\
+  !*** multi ./resources/js/app.js ***!
+  \***********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\OpenServer\domains\chat\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\OpenServer\domains\chat\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! C:\OpenServer\domains\chat\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ }),

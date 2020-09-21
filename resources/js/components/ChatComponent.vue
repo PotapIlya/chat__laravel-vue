@@ -31,33 +31,17 @@
 		}),
         mounted() {
             this.arrayMessage = this.chat
-			
-            const socket = io(':6001');
-            
-            socket.on('laravel_database_chat:message',  (data) => {
-                console.log(data)
-            })
+				
+			window.Echo.channel('laravel_database_chat')
+				.listen('NewMessage', ({message}) =>
+				{
+                    this.arrayMessage.push({ message: message});
+				})
 			
         },
 		created() {
-        //     listenForBroadcast(survey_id) {
-        //         Echo.join('survey.' + survey_id)
-        //             .here((users) => {
-        //                 this.users_viewing = users;
-        //                 this.$forceUpdate();
-        //             })
-        //             .joining((user) => {
-        //                 if (this.checkIfUserAlreadyViewingSurvey(user)) {
-        //                     this.users_viewing.push(user);
-        //                     this.$forceUpdate();
-        //                 }
-        //             })
-        //             .leaving((user) => {
-        //                 this.removeViewingUser(user);
-        //                 this.$forceUpdate();
-        //             });
-        //     },
-        // },
+        
+        },
         methods: {
             save()
 			{
@@ -66,20 +50,11 @@
 				    axios.post(this.url, {
 				        data: this.input,
 					})
-					.then(response =>
-					{
-					    if (response.data.success)
+					.then(response =>{
+					    if (response)
 						{
-						    this.arrayMessage.push(response.data.success);
-							this.input = null;
+                            this.input = null;
 						}
-					    if (response.data.error)
-						{
-						    alert(response.data.error)
-						}
-					})
-					.catch(error => {
-                        console.log(error)
 					})
 				}
 			}

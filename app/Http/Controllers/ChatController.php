@@ -21,14 +21,18 @@ class ChatController extends Controller
 	{
 
 
-		$create = Chat::create([
-			'name' => 'potap',
-			'message' => $request->data,
-		]);
+//		$create = Chat::create([
+//			'name' => 'potap',
+//			'message' => $request->data,
+//		]);
+		$create = $request->data;
 		if ($create)
 		{
-			event( new NewMessage( $create ) );
-			return response()->json(['success' => $create]);
+//			event( new NewMessage( $create ) );
+
+			NewMessage::dispatch( $create );
+
+//			return response()->json(['success' => $create]);
 		}else{
 			return response()->json(['error' => 'Error']);
 		}

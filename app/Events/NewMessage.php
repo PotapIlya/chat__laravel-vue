@@ -2,7 +2,6 @@
 
 namespace App\Events;
 
-use App\Models\Chat;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -11,12 +10,12 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
+
 class NewMessage implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $message;
-	public $survey;
 
     public function __construct($data)
     {
@@ -25,15 +24,12 @@ class NewMessage implements ShouldBroadcast
 
 	public function broadcastOn()
 	{
-		return new PresenceChannel('survey.' . $this->survey->id);
+		return new Channel('chat');
 	}
-//    public function broadcastOn()
-//    {
-//    	return ['chat'];
-//    }
 
-    public function broadcastAs()
-	{
-		return 'message';
-	}
+//    public function broadcastAs()
+//	{
+//		return 'chat';
+//	}
+
 }
