@@ -2025,8 +2025,9 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.arrayMessage = this.chat;
-    window.Echo.channel('laravel_database_chat').listen('NewMessage', function (_ref) {
+    window.Echo["private"]('private-room.1').listen('NewMessage', function (_ref) {
       var message = _ref.message;
+      console.log(message);
 
       _this.arrayMessage.push({
         message: message
@@ -2040,7 +2041,8 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.input !== '' && this.input !== null) {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, {
-          data: this.input
+          data: this.input,
+          id: 2
         }).then(function (response) {
           if (response) {
             _this2.input = null;

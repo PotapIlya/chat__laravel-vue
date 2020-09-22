@@ -32,9 +32,10 @@
         mounted() {
             this.arrayMessage = this.chat
 				
-			window.Echo.channel('laravel_database_chat')
+			window.Echo.private('private-room.1')
 				.listen('NewMessage', ({message}) =>
 				{
+                    console.log(message)
                     this.arrayMessage.push({ message: message});
 				})
 			
@@ -49,6 +50,7 @@
 				{
 				    axios.post(this.url, {
 				        data: this.input,
+						id: 2,
 					})
 					.then(response =>{
 					    if (response)
