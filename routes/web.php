@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Folder\Book;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,12 +19,43 @@ $data = [
 
 Route::group($data, function ()
 {
-	Route::get('/', 'ChatController@index');
+//	Route::get('/', 'ChatController@index');
 	Route::post('/message', 'ChatController@saveMessage');
 
 });
+
+Route::get('/', function ()
+{
+	foreach (\App\Models\User::all() as $item)
+	{
+		dd('https://www.youtube.com/watch?v=BpOu55DLQgU&list=PLD5U-C5KK50WlQNiunPPXSj5jjxVVTPtk&index=7');
+	}
+});
+
+
+Route::get('/room/{id}', function ($id)
+{
+	$room = \App\Models\Room::find($id);
+	return view('room', compact('room', 'id'));
+});
+
 
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+
+Route::resource('/book', 'App\Http\Controllers\BookController');
+
+
+
+
+
+
+
+
+
+

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -13,8 +14,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
-    }
+		$this->app->bind(\App\Folder\Book::class, function($app)
+		{
+			return new \App\Folder\Book('Pushkin', 35);
+		});
+	}
 
     /**
      * Bootstrap any application services.

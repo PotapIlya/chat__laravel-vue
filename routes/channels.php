@@ -19,7 +19,11 @@ use Illuminate\Support\Facades\Broadcast;
 
 Broadcast::channel('room.{id}', function ($user, $id)
 {
-	return true;
+	if ($user->rooms->contains($id))
+	{
+		return $user->name;
+	}
+
 //    return (int) $user->id === (int) $id;
 });
 

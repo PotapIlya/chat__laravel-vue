@@ -20,13 +20,13 @@ class ChatController extends Controller
 	public function saveMessage(Request $request)
 	{
 
-//		return $request;
+//		return $request->all();
 
 //		$create = Chat::create([
 //			'name' => 'potap',
 //			'message' => $request->data,
 //		]);
-		$create = $request->data;
+		$create = $request->all();
 		if ($create)
 		{
 //			event( new NewMessage( $create ) );
